@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    animation: seasons 20s infinite;
+  }
+.icons {
+    margin-top: 200px;
+  }
+
+  .icons a img {
+    width: 130px;
+    margin: 0 20px;
+    transition: transform 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .icons a img:hover {
+    transform: scale(1.1);
+  }
+  @keyframes seasons {
+    0% {
+        background-image: url(Spring.JPG); 
+    }
+    25% {
+        background-image: url(Summer.jpg); 
+    }
+    50% {
+        background-image: url(Autumn.PNG); 
+    }
+    75% {
+        background-image: url(Winter.PNG);
+    }
+    100% {
+        background-image: url(Spring.JPG); 
+    }
+}
+
+
+</style>
+
+
+
+
+</head>
+<body>
+<div class="icons">
+  <a href="Vocabulary.html" title="Vocabulary">
+  <img src="https://img.icons8.com/emoji/512/mount-fuji.png" alt="Vocabulary" width="130">
+  </a>
+  
+<a href="Day1.html" title="Day1">
+  <img src="https://img.icons8.com/emoji/512/cherry-blossom.png" alt="Day1" width="130">
+</a>
+
+
+<a href="Day2.html" title="Day2">
+  <img src="https://img.icons8.com/color/512/daruma-doll.png" alt="Day2" width="130">
+</a>
+
+
+<a href="Day3.html" title="Day3">
+  <img src="https://img.icons8.com/emoji/512/shinto-shrine.png" alt="Day3" width="130">
+</a>
+
+
+<a href="Day4.html" title="Day4">
+  <img src="https://img.icons8.com/emoji/512/dog-face.png" alt="Day4" width="130">
+</a>
+
+
+<a href="Day5.html" title="Day5">
+  <img src="https://img.icons8.com/emoji/512/carp-streamer.png" alt="Day5" width="130"><br>
+</a>
+
+
+<a href="Listening.html" title="Listening">
+  <img src="https://img.icons8.com/color/512/headphones--v1.png" alt="Listening" width="130">
+</a>
+
+
+<a href="Reading.html" title="Reading">
+  <img src="https://img.icons8.com/color/512/open-book--v1.png" alt="Reading" width="130">
+</a>
+
+  </div>
+  
+
+<audio id="bgm" loop >
+  <source src="backgroundmusic.mp3" type="audio/mpeg">
+</audio>
+
+</body>
+</html>
+
+
+
+
+
+
+</body>
+
+<script>
+  const bgm = document.getElementById("bgm");
+  bgm.volume = 0.4;
+
+  let started = false;
+
+  function startBGM() {
+    if (!started) {
+      bgm.play().catch(err => {
+        console.log("Autoplay blocked:", err);
+      });
+      started = true;
+    }
+  }
+
+  // user click anywhere → music start
+  document.addEventListener("click", startBGM);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

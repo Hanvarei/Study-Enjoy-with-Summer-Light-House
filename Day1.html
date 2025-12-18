@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Day 1 Flashcards</title>
+
+<style>
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #ffe6d5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px 40px;
+    margin: 0;
+  }
+  h1 { margin-bottom: 10px; text-align: center; }
+
+  .card {
+    width: 320px;
+    min-height: 150px;
+    background: cadetblue;
+    color: white;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: background 0.4s ease, transform 0.2s ease;
+    cursor: pointer;
+  }
+  .card.bounce { animation: bounce 0.18s ease; }
+  @keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.97); }
+    100% { transform: scale(1); }
+  }
+
+  .label { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; }
+  #text-main { font-size: 1.6rem; margin-bottom: 8px; word-wrap: break-word; }
+  #text-sub { font-size: 1rem; opacity: 0.9; }
+
+  .audio-buttons, .buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  button {
+    border: none;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: #007bff;
+    color: black;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s ease;
+  }
+  button:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+  button.secondary { background: #ffb703; color: #333; }
+  button.small { font-size: 0.8rem; padding: 6px 10px; }
+  .nav-btn { min-width: 90px; }
+
+  #counter { font-size: 0.85rem; color: #555; margin-bottom: 10px; }
+
+  .auto-options { font-size: 0.8rem; color: #444; margin-bottom: 18px; }
+  .auto-options label { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+
+  .question {
+    background: white;
+    padding: 16px 18px;
+    margin: 10px 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 520px;
+    width: 100%;
+  }
+  .question p { margin: 6px 0; }
+
+  .choice-btn {
+    display: block;
+    width: 100%;
+    margin: 6px 0;
+    padding: 12px;
+    border-radius: 8px;
+    background: wheat;
+    color: #222;
+    text-align: left;
+    border: none;
+    cursor: pointer;
+  }
+  .choice-btn.correct { background: #90EE90 !important; }
+  .choice-btn.wrong { background: #FF7F7F !important; }
+  .result { margin-top: 8px; font-weight: bold; }
+</style>
+</head>
+
+<body>
+  <h1>Day 1 – Flashcards</h1>
+
+  <div class="card" id="card">
+    <div class="label" id="side-label">English</div>
+    <div id="text-main"></div>
+    <div id="text-sub"></div>
+  </div>
+
+  <div class="audio-buttons">
+    <button class="small" id="speak-en">▶️ English</button>
+    <button class="small secondary" id="speak-ja">▶️ 日本語（読み方）</button>
+  </div>
+
+  <div class="buttons">
+    <button id="prev" class="nav-btn">← Prev</button>
+    <button id="flip" class="secondary nav-btn">🔄 Flip</button>
+    <button id="next" class="nav-btn">Next →</button>
+    <button id="random" class="nav-btn">🔀 Random</button>
+  </div>
+
+  <div id="counter"></div>
+
+  <div class="auto-options">
+    <label>
+      <input type="checkbox" id="auto-en" />
+      Auto English（カード表示ごとに発音）
+    </label>
+  </div>
+
+  <!-- ===================== QUIZ (Day1 All) ===================== -->
+
+  <div class="question">
+    <p>1. I</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) あなた</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(B) 彼</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(C) 私</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 彼女</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>2. 私</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) You</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(B) I</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) He</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) She</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>3. I'm 16 years old.</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) 私は17さいです。</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(B) 私は19さいです。</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) 私は15さいです。</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(D) 私は16さいです。</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>4. 私は16さいです。</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) I'm 15 years old.</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(B) I'm 16 years old.</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) I'm 17 years old.</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) I'm 18 years old.</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>5. My</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) 彼の</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(B) 彼女の</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(C) 私の</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) あなたの</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>6. 私の名前は。。。です。</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) I am</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(B) My name is</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) I have a name</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) Your name is</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>7. have</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) 行く</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(B) 食べる</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(C) 持っている</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 見る</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>8. 持っている</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) like</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(B) want</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(C) have</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) need</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>9. busy</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) うれしい</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(B) 忙しい</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) 寒い</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 簡単な</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>10. 忙しい</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) happy</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(B) busy</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) sleepy</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) hungry</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>11. life</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) 学生</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(B) 友達</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(C) 人生・生活</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 家</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>12. 人生・生活</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) world</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(B) life</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) family</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) love</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>13. busy life</p>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(A) 忙しい生活</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(B) 楽しい生活</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) 新しい生活</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 簡単な生活</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>14. 忙しい生活</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) a happy life</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(B) a busy life</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) a good life</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) a long life</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>15. have a busy life</p>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(A) 忙しい生活をしている；忙しい生活を送っている</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(B) 静かな生活を送っている</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) 幸せいな生活をしている</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 学校生活を送っている</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>16. 忙しい生活をしている</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) live a happy life</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(B) have a busy life</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) make a busy life</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) be a busy person</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>17. wake up</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) 食べる</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(B) 起きる</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) 寝る</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 歩く</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>18. 起きる</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) get up</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(B) wake up</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) stay up</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) stand up</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>19. at 7 o'clock</p>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(A) 7時に</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(B) 7時半に</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) 6時に</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 7時ごろ</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>20. 7時に</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) at 8 o'clock</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(B) in 7 o'clock</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(C) at 7 o'clock</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) on 7 o'clock</button>
+    <p class="result"></p>
+  </div>
+
+  <div class="question">
+    <p>21. I wake up at 7 o'clock</p>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(A) 7時に寝る</button>
+    <button class="choice-btn" onclick="checkAnswer(this,true)">(B) 7時に起きる</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(C) 7時に学校へ行く</button>
+    <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 7時に朝ご飯を食べる</button>
+    <p class="result"></p>
+  </div>
+
+<script>
+  /* ================= Flashcards ================= */
+  const cards = [
+    { en:"I", ja:"私", read:"わたし", pron: "ai" },
+    { en:"I'm ... years old.", ja:"私は…さいです。", read:"わたしは…さいです", pron:"I'm years old" },
+    { en:"My", ja:"私の", read:"わたしの", pron:"my" },
+    { en:"My name is ...", ja:"私の名前は…です。", read:"わたしのなまえは…です", pron:"my name is" },
+    { en:"have", ja:"持っている", read:"もっている", pron:"have" },
+    { en:"busy", ja:"忙しい", read:"いそがしい", pron:"busy" },
+    { en:"life", ja:"人生・生活", read:"じんせい・せいかつ", pron:"life" },
+    { en:"busy life", ja:"忙しい生活", read:"いそがしいせいかつ", pron:"busy life" },
+    { en:"have a busy life", ja:"忙しい生活をしている／忙しい生活を送っている", read:"いそがしいせいかつをしている・いそがしいせいかつをおくっている", pron:"have a busy life" },
+    { en:"wake up", ja:"起きる", read:"おきる", pron:"wake up" },
+    { en:"at ... o'clock", ja:"…時に", read:"…じに", pron:"at o'clock" }
+  ];
+
+  const STORAGE_KEY_INDEX = "day1FlashIndex";
+  const STORAGE_KEY_SIDE  = "day1FlashSide";
+  const STORAGE_KEY_AUTO_EN = "day1AutoEn";
+
+  let index = 0;
+  let isFront = true;
+
+  const storedIndex = localStorage.getItem(STORAGE_KEY_INDEX);
+  const storedSide  = localStorage.getItem(STORAGE_KEY_SIDE);
+  const storedAutoEn = localStorage.getItem(STORAGE_KEY_AUTO_EN);
+
+  if (storedIndex !== null) {
+    const n = parseInt(storedIndex, 10);
+    if (!Number.isNaN(n) && n >= 0 && n < cards.length) index = n;
+  }
+  if (storedSide === "back") isFront = false;
+
+  const mainEl = document.getElementById("text-main");
+  const subEl = document.getElementById("text-sub");
+  const labelEl = document.getElementById("side-label");
+  const counterEl = document.getElementById("counter");
+  const cardEl = document.getElementById("card");
+  const autoEnCheckbox = document.getElementById("auto-en");
+
+  if (storedAutoEn === "1") autoEnCheckbox.checked = true;
+
+  function speak(text, lang) {
+    if (!window.speechSynthesis) return;
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+  }
+
+  function updateCard(options = { fromUser:false }) {
+    const c = cards[index];
+
+    if (isFront) {
+      labelEl.textContent = "English";
+      mainEl.textContent = c.en;
+      subEl.textContent = "";
+    } else {
+      labelEl.textContent = "日本語";
+      mainEl.textContent = c.ja;
+      subEl.textContent = "読み方: " + (c.read || "");
+    }
+    counterEl.textContent = `Card ${index + 1} / ${cards.length}`;
+
+    localStorage.setItem(STORAGE_KEY_INDEX, String(index));
+    localStorage.setItem(STORAGE_KEY_SIDE, isFront ? "front" : "back");
+
+    if (options.fromUser && isFront && autoEnCheckbox.checked) {
+      speak(c.pron || c.en, "en-US");
+    }
+  }
+
+  document.getElementById("speak-en").addEventListener("click", () => {
+    const c = cards[index];
+    speak(c.pron || c.en, "en-US");
+  });
+
+  document.getElementById("speak-ja").addEventListener("click", () => {
+    const c = cards[index];
+    speak(c.read || c.ja, "ja-JP");
+  });
+
+  autoEnCheckbox.addEventListener("change", () => {
+    localStorage.setItem(STORAGE_KEY_AUTO_EN, autoEnCheckbox.checked ? "1" : "0");
+  });
+
+  document.getElementById("next").addEventListener("click", () => {
+    index = (index + 1) % cards.length;
+    isFront = true;
+    animateCard();
+    updateCard({ fromUser:true });
+  });
+
+  document.getElementById("prev").addEventListener("click", () => {
+    index = (index - 1 + cards.length) % cards.length;
+    isFront = true;
+    animateCard();
+    updateCard({ fromUser:true });
+  });
+
+  document.getElementById("flip").addEventListener("click", () => {
+    isFront = !isFront;
+    animateCard();
+    updateCard({ fromUser:false });
+  });
+
+  document.getElementById("random").addEventListener("click", () => {
+    let newIndex = index;
+    if (cards.length > 1) {
+      while (newIndex === index) newIndex = Math.floor(Math.random() * cards.length);
+    }
+    index = newIndex;
+    isFront = true;
+    animateCard();
+    updateCard({ fromUser:true });
+  });
+
+  const colors = [
+    "#76b5c5", "#9dc4b5", "#f3bda1", "#f7d9c4",
+    "#c3aed6", "#a3c7d6", "#f2a154", "#ffcc80",
+    "#b0d8a4", "#ffb4a2"
+  ];
+
+  function animateCard(){
+    cardEl.style.background = colors[Math.floor(Math.random() * colors.length)];
+    cardEl.classList.remove("bounce");
+    void cardEl.offsetWidth;
+    cardEl.classList.add("bounce");
+  }
+
+  cardEl.addEventListener("click", animateCard);
+
+  function checkAnswer(btn, isCorrect){
+    const box = btn.closest(".question");
+    const result = box.querySelector(".result");
+
+    box.querySelectorAll(".choice-btn").forEach(b => b.classList.remove("correct","wrong"));
+
+    if (isCorrect) {
+      btn.classList.add("correct");
+      result.textContent = "✔ Correct!";
+      result.style.color = "green";
+    } else {
+      btn.classList.add("wrong");
+      result.textContent = "✘ Wrong!";
+      result.style.color = "red";
+    }
+  }
+  window.checkAnswer = checkAnswer;
+  window.checkAnswer = checkAnswer; // keep global
+
+  updateCard();
+</script>
+
+</body>
+</html>

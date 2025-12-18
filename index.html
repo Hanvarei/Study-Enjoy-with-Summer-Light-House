@@ -1,0 +1,104 @@
+
+<intex.html></intex.html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summer Lighthouse</title>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+ 
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #b9e6ff, #fff8f2);
+    background-size: 400% 400%;
+    animation: bgChange 12s ease-in-out infinite;
+  }
+
+  
+  @keyframes bgChange {
+    0%   { background: linear-gradient(135deg, #b9e6ff, #fff8f2); }
+    25%  { background: linear-gradient(135deg, #ffe9b3, #fff1c1); }
+    50%  { background: linear-gradient(135deg, #c7ffd8, #fef8ef); }
+    75%  { background: linear-gradient(135deg, #ffd5cc, #fff3e6); }
+    100% { background: linear-gradient(135deg, #b9e6ff, #fff8f2); }
+  }
+
+  h1 {
+    font-size: 48px;
+    color: #1d7abc;
+    margin-top: 80px;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+  }
+
+  h1 span {
+    color: #ffb347;
+  }
+
+  p {
+    font-size: 20px;
+    color: #333;
+    line-height: 1.6;
+  }
+
+  
+  a.button {
+    display: inline-block;
+    background-color: #1d7abc;
+    color: white;
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-size: 18px;
+    text-decoration: none;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    margin-top: 30px;
+  }
+
+  a.button:hover {
+    background-color: #166293;
+    transform: scale(1.05);
+  }
+
+  
+  
+ 
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+</style>
+</head>
+
+<body>
+  <h1>Welcome to <span>Summer Lighthouse!</span></h1>
+  <p>Let your mind shine like the summer sun ☀️<br>
+     Learn, play, and grow with light and inspiration.<br>
+     Let's start the journey together! 🌊</p>
+
+
+
+     <video id="myVideo" width="500" height="500">
+  <source src="Welcoming video.mov" type="video/mp4">
+
+</video>
+<br>
+<br><br>
+<button onclick="document.getElementById('myVideo').play()">▶️ Play Video</button><br>
+
+  
+  <a href="DaysList.html" class="button">🌟 Start Learning</a>
+
+
+
+
+</body>
+</html>

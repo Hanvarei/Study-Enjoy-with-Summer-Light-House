@@ -1,0 +1,318 @@
+<intex.html></intex.html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Yuki's Busy Life – Daily Life Worksheet</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: bisque;
+      margin: 0;
+      padding: 30px 10px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      background: white;
+      max-width: 800px;
+      width: 100%;
+      padding: 30px 25px 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      border-radius: 12px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin: 0 0 5px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #555;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 25px;
+    }
+
+    th, td {
+      border: 1px solid bisque;
+      padding: 8px 6px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background: white;
+      font-weight: 600;
+    }
+
+    .instructions {
+      margin-bottom: 15px;
+    }
+
+    .paragraph {
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+
+    .blank-input {
+      min-width: 70px;
+      border: none;
+      border-bottom: 1px solid #000;
+      padding: 2px 4px;
+      font-size: 0.98rem;
+      text-align: center;
+      outline: none;
+      transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .correct {
+      background-color: white;   
+      border-color: #16a34a;
+      color: #14532d;
+    }
+
+    .incorrect {
+      background-color: white;   
+      border-color: #dc2626;
+      color: #7f1d1d;
+    }
+
+    .answer-key {
+      margin-top: 30px;
+      padding: 15px 15px 5px;
+      background: darkcyan;
+      border-radius: 10px;
+      border: 1px solid darkgoldenrod;
+      font-size: 0.95rem;
+    }
+
+    .answer-key h2 {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .answers {
+      columns: 2;
+      column-gap: 40px;
+      padding-left: 20px;
+    }
+
+    .toggle-btn, .check-all-btn {
+      margin-top: 10px;
+      display: inline-block;
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      border-radius: 999px;
+      border: 1px solid cadetblue;
+      background: bisque;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+
+    .toggle-btn:hover,
+    .check-all-btn:hover {
+      background: darkcyan;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Yuki's Busy Life</h1>
+    <p class="subtitle">Type your answer in each blank. </p>
+
+    
+    <h2>Word Box</h2>
+    <table>
+      <tr>
+        <td>get ready</td>
+        <td>eggs</td>
+        <td>cold</td>
+        <td>bread</td>
+        <td>eat</td>
+      </tr>
+      <tr>
+        <td>wake up</td>
+        <td>busy</td>
+        <td>study</td>
+        <td>Hinata</td>
+        <td>kitchen</td>
+      </tr>
+      <tr>
+        <td>eat</td>
+        <td>busy</td>
+        <td>walk</td>
+        <td>18</td>
+        <td>Yuki</td>
+      </tr>
+      <tr>
+        <td>makes</td>
+        <td>wash</td>
+        <td>brush</td>
+        <td>bathroom</td>
+        <td>pack</td>
+      </tr>
+    </table>
+
+    
+    <h2>Daily Life</h2>
+    <p class="instructions">
+      Write the correct word in each blank. Use the word box above. (case-insensitive)
+    </p>
+    <button onclick="playAudio()">🔊 Read</button>
+<button onclick="stopAudio()">⏹ Stop</button>
+
+<audio id="reader">
+  <source src="yuki'sbusy life.mp3" type="audio/mpeg">
+</audio>
+
+    <p class="paragraph">
+      My name is (1)
+      <input class="blank-input" data-answer="yuki">
+      . I'm (2)
+      <input class="blank-input" data-answer="18">
+      years old, and I'm a first-year university student. I have a (3)
+      <input class="blank-input" data-answer="busy">
+      life!
+    </p>
+
+    <p class="paragraph">
+      I usually (4)
+      <input class="blank-input" data-answer="wake up">
+      at seven o'clock in the morning. First, I go to the (5)
+      <input class="blank-input" data-answer="bathroom">
+      . I (6)
+      <input class="blank-input" data-answer="brush">
+      my teeth and (7)
+      <input class="blank-input" data-answer="wash">
+      my face with (8)
+      <input class="blank-input" data-answer="cold">
+      water. Then I go to the (9)
+      <input class="blank-input" data-answer="kitchen">
+      at seven fifteen. My sister Saki usually (10)
+      <input class="blank-input" data-answer="makes">
+      breakfast for us. We usually eat (11)
+      <input class="blank-input" data-answer="bread">
+      and (12)
+      <input class="blank-input" data-answer="eggs">
+      .
+    </p>
+
+    <p class="paragraph">
+      After that, I (13)
+      <input class="blank-input" data-answer="pack">
+      my school bag and (14)
+      <input class="blank-input" data-answer="get ready">
+      for my classes. I always (15)
+      <input class="blank-input" data-answer="walk">
+      to school at eight o'clock. My university is not far from my house. I study hard and (16)
+      <input class="blank-input" data-answer="eat">
+      lunch with my friend (17)
+      <input class="blank-input" data-answer="hinata">
+      at one o'clock.
+    </p>
+
+    <p class="paragraph">
+      In the evening, I (18)
+      <input class="blank-input" data-answer="eat">
+      dinner with my family at seven o'clock. After dinner, I sometimes (19)
+      <input class="blank-input" data-answer="study">
+      together with Hinata online. I like my (20)
+      <input class="blank-input" data-answer="busy">
+      life.
+    </p>
+
+    
+    <div class="answer-key" id="answer-key">
+      <h2>✅ Answer Key</h2>
+     
+      <button class="toggle-btn" type="button" onclick="toggleAnswers()">Show / Hide Answers</button>
+      <div class="answers" id="answers" style="display:none;">
+        <ol>
+          <li>Yuki</li>
+          <li>18</li>
+          <li>busy</li>
+          <li>wake up</li>
+          <li>bathroom</li>
+          <li>brush</li>
+          <li>wash</li>
+          <li>cold</li>
+          <li>kitchen</li>
+          <li>makes</li>
+          <li>bread</li>
+          <li>eggs</li>
+          <li>pack</li>
+          <li>get ready</li>
+          <li>walk</li>
+          <li>eat</li>
+          <li>Hinata</li>
+          <li>eat</li>
+          <li>study (together)</li>
+          <li>busy</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function normalize(str) {
+      return str.trim().toLowerCase();
+    }
+
+    function checkInput(input) {
+      const correct = normalize(input.dataset.answer);
+      const value = normalize(input.value);
+
+      input.classList.remove('correct', 'incorrect');
+
+      if (!value) return; 
+
+      if (value === correct) {
+        input.classList.add('correct');
+      } else {
+        input.classList.add('incorrect');
+      }
+    }
+
+    
+    document.querySelectorAll('.blank-input').forEach(input => {
+      input.addEventListener('input', () => checkInput(input));
+    });
+
+    function checkAll() {
+      document.querySelectorAll('.blank-input').forEach(input => checkInput(input));
+    }
+
+    function toggleAnswers() {
+      const box = document.getElementById("answers");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    }
+    const audio = document.getElementById("reader");
+
+function playAudio() {
+  audio.currentTime = 0;
+  audio.play();
+}
+
+function stopAudio() {
+  audio.pause();
+  audio.currentTime = 0;
+}
+  </script>
+</body>
+</html>

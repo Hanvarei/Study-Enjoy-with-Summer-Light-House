@@ -1,0 +1,161 @@
+<intex.html></intex.html>
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+<style>
+
+.video-box {
+    
+  width: 90%;
+  max-width: 300px;
+  margin: 50px auto;
+  background:white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+.video-box iframe {
+  width: 100%;
+  height: 320px;
+  border-radius: 15px;
+}
+button {
+  display: block;
+  width: 50%;
+  margin: 6px 0;
+  padding: 12px;
+  border: none;
+  background: wheat;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+button.correct {
+  background: #90EE90 !important;
+}
+
+button.wrong {
+  background: #FF7F7F !important;
+}
+
+.question {
+  background: white;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.result {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+</style>
+
+</head>
+
+
+<body>
+    
+<video controls class="video-box" width="320">
+  <source src="videos/intro.mp4.Mov" type="video/mp4">
+</video>
+
+
+
+<div class="question">
+  <p>1. How old is Saki? (サキさんは年歳ですか？)</p>
+
+  <button onclick="checkAnswer(this, false)">(A) 14 years old</button>
+  <button onclick="checkAnswer(this, false)">(B) 15 years old</button>
+  <button onclick="checkAnswer(this, true)">(C) 16 years old</button>
+  <button onclick="checkAnswer(this, false)">(D) 18 years old</button>
+
+  <p class="result"></p>
+</div>
+<div class="question">
+  <p>2.What does Saki do first after she wake up?(さきさんは起きてから何をしますか?) </p>
+
+  <button onclick="checkAnswer(this, false)">(A) Eat breakfast</button>
+  <button onclick="checkAnswer(this, false)">(B) Go to school</button>
+  <button onclick="checkAnswer(this, true)">(C) Go to bathroom</button>
+  <button onclick="checkAnswer(this, false)">(D) Make her bed</button>
+
+  <p class="result"></p>
+</div>
+<div class="question">
+  <p>3. What does Saki usually make for breakfast?(普通は朝ご飯にサキさんが何を作りますか?)</p>
+
+  <button onclick="checkAnswer(this, false)">(A) Rice and soup</button>
+  <button onclick="checkAnswer(this, true)">(B) Bred with eggs</button>
+  <button onclick="checkAnswer(this, false)">(C) Noodle and milk</button>
+  <button onclick="checkAnswer(this, false)">(D) Pancakes</button>
+
+  <p class="result"></p>
+</div>
+<div class="question">
+  <p>4.Who does Saki walk to school with?(サキさんは誰と一緒に学校に行きますか?)</p>
+
+  <button onclick="checkAnswer(this, false)">(A) Her brother Yuki</button>
+  <button onclick="checkAnswer(this, false)">(B) Her neighbour's sister</button>
+  <button onclick="checkAnswer(this, true)">(C) Her friend Thida</button>
+  <button onclick="checkAnswer(this, false)">(D) Her teacher</button>
+
+  <p class="result"></p>
+</div>
+<div class="question">
+  <p>5.Where is Thida from?(Thidaさんはどちらのしゅっしんですか?)</p>
+
+  <button onclick="checkAnswer(this, false)">(A) Japan</button>
+  <button onclick="checkAnswer(this, true)">(B) Myanmar</button>
+  <button onclick="checkAnswer(this, false)">(C) Thailand</button>
+  <button onclick="checkAnswer(this, false)">(D) Korea</button>
+
+  <p class="result"></p>
+</div>
+
+<script>
+function checkAnswer(button, isCorrect) {
+  const parent = button.parentElement;
+  const result = parent.querySelector('.result');
+
+  // すべてのボタンをリセット
+  parent.querySelectorAll("button").forEach(btn => {
+    btn.classList.remove("correct", "wrong");
+  });
+
+  if (isCorrect) {
+    button.classList.add("correct");
+    result.textContent = "✔ Correct!";
+    result.style.color = "green";
+  } else {
+    button.classList.add("wrong");
+    result.textContent = "✘ Wrong!";
+    result.style.color = "red";
+  }
+}
+</script>
+
+
+
+
+
+    
+    
+    
+<body>
+
+</html>

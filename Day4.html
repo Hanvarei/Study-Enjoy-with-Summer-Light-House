@@ -1,0 +1,608 @@
+<intex.html></intex.html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Day 4 Flashcards</title>
+
+<style>
+    body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #f3e5d8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 10px 40px;
+        margin: 0;
+    }
+
+    h1 {
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    .card {
+        width: 330px;
+        min-height: 160px;
+        background: #e8cfae;
+        color: #333;
+        border-radius: 18px;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: background 0.4s ease, transform 0.2s ease;
+        cursor: pointer;
+    }
+
+    .card.bounce {
+        animation: bounce 0.18s ease;
+    }
+
+    @keyframes bounce {
+        0%   { transform: scale(1); }
+        50%  { transform: scale(0.97); }
+        100% { transform: scale(1); }
+    }
+
+    .label {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+        opacity: 0.85;
+    }
+
+    #text-main {
+        font-size: 1.7rem;
+        margin-bottom: 8px;
+    }
+
+    #text-sub {
+        font-size: 1rem;
+        opacity: 0.9;
+    }
+
+    .audio-buttons,
+    .buttons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    button {
+        border: none;
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        background: #007bff;
+        color: white;
+        transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s ease;
+    }
+
+    button.secondary {
+        background: #ffb703;
+        color: #333;
+    }
+
+    button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .nav-btn {
+        min-width: 90px;
+    }
+
+    #counter {
+        font-size: 0.85rem;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .auto-options {
+        font-size: 0.8rem;
+        color: #444;
+        margin-bottom: 18px;
+    }
+
+    .auto-options label {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+    }
+
+    /* Quiz */
+    .question {
+        background: white;
+        padding: 16px 18px;
+        margin: 10px 0;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        max-width: 420px;
+        width: 100%;
+    }
+
+    .question p {
+        margin: 6px 0;
+    }
+
+    .choice-btn {
+        display: block;
+        width: 100%;
+        margin: 6px 0;
+        padding: 12px;
+        border-radius: 8px;
+        background: wheat;
+        color: #222;
+        border: none;
+        text-align: left;
+        cursor: pointer;
+        font-size: 0.95rem;
+    }
+
+    .choice-btn.correct {
+        background: #90EE90 !important;
+    }
+    .choice-btn.wrong {
+        background: #FF7F7F !important;
+    }
+
+    .result {
+        margin-top: 8px;
+        font-weight: bold;
+    }
+</style>
+</head>
+
+<body>
+    <h1>Day 4 – Flashcards</h1>
+
+    <div class="card" id="card">
+        <div class="label" id="side-label">English</div>
+        <div id="text-main"></div>
+        <div id="text-sub"></div>
+    </div>
+
+    <div class="audio-buttons">
+        <button class="small" id="speak-en">▶️ English</button>
+        <button class="small secondary" id="speak-ja">▶️ 日本語（読み方）</button>
+    </div>
+
+    <div class="buttons">
+        <button id="prev" class="nav-btn">← Prev</button>
+        <button id="flip" class="secondary nav-btn">🔄 Flip</button>
+        <button id="next" class="nav-btn">Next →</button>
+        <button id="random" class="nav-btn">🔀 Random</button>
+    </div>
+
+    <div id="counter"></div>
+
+    <div class="auto-options">
+        <label>
+            <input type="checkbox" id="auto-en" />
+            Auto English（カード表示ごとに発音）
+        </label>
+    </div>
+
+    <!-- QUIZ (1–30) -->
+    <div class="question">
+        <p>1. I</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) あなた</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) 彼</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(C) 私</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 彼女</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>2. 私</p>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(A) I</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) You</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) He</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) She</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>3. usually</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) 時々</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(B) たいてい</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) いつも</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 毎日</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>4. いつも</p>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(A) always</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) sometimes</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) usually</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) rarely</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>5. at 7 o'clock</p>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(A) 7時に</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) 7時ごろ</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) 7時から</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 7分に</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>6. まず</p>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(A) first</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) then</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) after that</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) next</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>7. そのあと</p>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(A) after that</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) first</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) before</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) early</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>8. 朝</p>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(A) morning</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) afternoon</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) evening</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) night</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>9. 午後</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) morning</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(B) afternoon</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) evening</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) night</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>10. 夕方</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) morning</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) afternoon</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(C) evening</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) night</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>11. kitchen</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) 居間</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) 洗面所</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(C) キッチン</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 廊下</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>12. 朝ごはん・朝食</p>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(A) breakfast</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) lunch</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) dinner</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) snack</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>13. 昼ごはん・昼食</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) dinner</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) breakfast</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(C) lunch</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) bread</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>14. 晩ごはん・夕食</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) breakfast</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) lunch</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(C) dinner</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) snack</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>15. 食べる</p>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(A) eat</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) make</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) drink</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) cook</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>16. 朝ごはんを食べる</p>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(A) eat breakfast</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) make breakfast</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) eat lunch</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) cook breakfast</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>17. 昼ごはんを食べる</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) eat breakfast</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(B) eat lunch</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) make dinner</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) buy lunch</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>18. 晩ごはんを食べる</p>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(A) eat dinner</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) make dinner</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) eat lunch</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) cook breakfast</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>19. 作る</p>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(A) make</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) eat</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) cook</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) drink</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>20. 朝ごはんを作る</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) eat breakfast</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(B) make breakfast</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) cook breakfast</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) have breakfast</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>21. 昼ごはんを作る</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) eat lunch</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(B) make lunch</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) cook lunch</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) buy lunch</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>22. 晩ごはんを作る</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) eat dinner</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(B) make dinner</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) cook breakfast</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) buy dinner</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>23. パン</p>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(A) bread</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) egg</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) rice</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) soup</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>24. 卵</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) rice</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) bread</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(C) eggs</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) meat</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>25. I usually eat breakfast at 7 o'clock.</p>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(A) 私はたいてい7時に朝ごはんを食べる。</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) 私はいつも7時に寝る。</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) 私は時々7時に顔を洗う。</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 私はたいてい7時に晩ごはんを作る。</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>26. 私はたいてい7時に朝ごはんを食べる。</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) I sometimes eat breakfast at 7 o'clock.</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) I always make breakfast at 7 o'clock.</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(C) I usually eat breakfast at 7 o'clock.</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) I get ready for school.</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>27. I make breakfast in the kitchen.</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) 私は洗面所で朝ごはんを食べる。</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(B) 私はキッチンで朝ごはんを作る。</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) 私は学校で昼ごはんを食べる。</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 私は外で朝ごはんを食べる。</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>28. 私はキッチンで朝ごはんを作る。</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) I eat breakfast in the kitchen.</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(B) I make breakfast in the kitchen.</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) I cook lunch in the kitchen.</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) I clean the kitchen.</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>29. I feel tired in the morning.</p>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(A) 私は朝に眠い。</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) 私は朝に元気だ。</button>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(C) 私は朝に疲れたと感じる。</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) 私は朝にごはんを食べない。</button>
+        <p class="result"></p>
+    </div>
+
+    <div class="question">
+        <p>30. 私は朝に疲れたと感じる。</p>
+        <button class="choice-btn" onclick="checkAnswer(this,true)">(A) I feel tired in the morning.</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(B) I feel tired in the evening.</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(C) I always eat breakfast in the morning.</button>
+        <button class="choice-btn" onclick="checkAnswer(this,false)">(D) I wake up late in the morning.</button>
+        <p class="result"></p>
+    </div>
+
+    <script>
+    /* Flashcards data */
+    const cards = [
+        { en:"feel", ja:"感じる", read:"かんじる", pron:"feel" },
+        { en:"tired", ja:"疲れた", read:"つかれた", pron:"tired" },
+        { en:"morning", ja:"朝", read:"あさ", pron:"morning" },
+        { en:"afternoon", ja:"午後", read:"ごご", pron:"afternoon" },
+        { en:"evening", ja:"夕方", read:"ゆうがた", pron:"evening" },
+        { en:"kitchen", ja:"キッチン", read:"きっちん", pron:"kitchen" },
+        { en:"breakfast", ja:"朝ごはん；朝食", read:"あさごはん", pron:"breakfast" },
+        { en:"lunch", ja:"昼ごはん；昼食", read:"ひるごはん", pron:"lunch" },
+        { en:"dinner", ja:"晩ごはん；夕食", read:"ばんごはん", pron:"dinner" },
+        { en:"eat", ja:"食べる", read:"たべる", pron:"eat" },
+        { en:"eat breakfast", ja:"朝ごはんを食べる", read:"あさごはんをたべる", pron:"eat breakfast" },
+        { en:"eat lunch", ja:"昼ごはんを食べる", read:"ひるごはんをたべる", pron:"eat lunch" },
+        { en:"eat dinner", ja:"晩ごはんを食べる", read:"ばんごはんをたべる", pron:"eat dinner" },
+        { en:"make", ja:"作る", read:"つくる", pron:"make" },
+        { en:"make breakfast", ja:"朝ごはんを作る", read:"あさごはんをつくる", pron:"make breakfast" },
+        { en:"make lunch", ja:"昼ごはんを作る", read:"ひるごはんをつくる", pron:"make lunch" },
+        { en:"make dinner", ja:"晩ごはんを作る", read:"ばんごはんをつくる", pron:"make dinner" },
+        { en:"some", ja:"いくつかの", read:"いくつかの", pron:"some" },
+        { en:"bread", ja:"パン", read:"ぱん", pron:"bread" },
+        { en:"eggs", ja:"卵", read:"たまご", pron:"eggs" }
+    ];
+
+    let index = 0;
+    let isFront = true;
+
+    const mainEl = document.getElementById("text-main");
+    const subEl = document.getElementById("text-sub");
+    const labelEl = document.getElementById("side-label");
+    const counterEl = document.getElementById("counter");
+    const autoEnCheckbox = document.getElementById("auto-en");
+    const cardEl = document.getElementById("card");
+
+    function updateCard(options = { fromUser:false }) {
+        const card = cards[index];
+        if (isFront) {
+            labelEl.textContent = "English";
+            mainEl.textContent = card.en;
+            subEl.textContent = "";
+        } else {
+            labelEl.textContent = "日本語";
+            mainEl.textContent = card.ja;
+            subEl.textContent = "読み方: " + card.read;
+        }
+        counterEl.textContent = `Card ${index+1} / ${cards.length}`;
+
+        if (options.fromUser && isFront && autoEnCheckbox.checked) {
+            speak(card.pron || card.en, "en-US");
+        }
+    }
+
+    function speak(text, lang) {
+        if (!window.speechSynthesis) return;
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = lang;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(u);
+    }
+
+    document.getElementById("speak-en").addEventListener("click", () => {
+        const card = cards[index];
+        speak(card.pron || card.en, "en-US");
+    });
+
+    document.getElementById("speak-ja").addEventListener("click", () => {
+        const card = cards[index];
+        speak(card.read || card.ja, "ja-JP");
+    });
+
+    document.getElementById("next").addEventListener("click", () => {
+        index = (index + 1) % cards.length;
+        isFront = true;
+        animateCard();
+        updateCard({ fromUser:true });
+    });
+
+    document.getElementById("prev").addEventListener("click", () => {
+        index = (index - 1 + cards.length) % cards.length;
+        isFront = true;
+        animateCard();
+        updateCard({ fromUser:true });
+    });
+
+    document.getElementById("flip").addEventListener("click", () => {
+        isFront = !isFront;
+        animateCard();
+        updateCard({ fromUser:false });
+    });
+
+    document.getElementById("random").addEventListener("click", () => {
+        let newIndex = index;
+        if (cards.length > 1) {
+            while (newIndex === index) {
+                newIndex = Math.floor(Math.random() * cards.length);
+            }
+        }
+        index = newIndex;
+        isFront = true;
+        animateCard();
+        updateCard({ fromUser:true });
+    });
+
+    const colors = [
+        "#f7d6b5","#ffe3c0","#f0cfa3","#ffe2b2","#e8cfae","#f7d7b5"
+    ];
+
+    function animateCard() {
+        const randomColor = colors[Math.floor(Math.random()*colors.length)];
+        cardEl.style.background = randomColor;
+        cardEl.classList.remove("bounce");
+        void cardEl.offsetWidth;
+        cardEl.classList.add("bounce");
+    }
+
+    cardEl.addEventListener("click", animateCard);
+
+    function checkAnswer(button, isCorrect) {
+        const parent = button.closest(".question");
+        const result = parent.querySelector(".result");
+
+        parent.querySelectorAll(".choice-btn").forEach(btn => {
+            btn.classList.remove("correct", "wrong");
+        });
+
+        if (isCorrect) {
+            button.classList.add("correct");
+            result.textContent = "✔ Correct!";
+            result.style.color = "green";
+        } else {
+            button.classList.add("wrong");
+            result.textContent = "✘ Wrong!";
+            result.style.color = "red";
+        }
+    }
+
+    window.checkAnswer = checkAnswer;
+
+    updateCard();
+    </script>
+</body>
+</html>
